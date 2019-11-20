@@ -4,6 +4,7 @@ package com.suicidaesquadrao.estacionamento.dao;
 import com.suicidaesquadrao.estacionamento.model.Usuario;
 import com.suicidaesquadrao.estacionamento.model.Venda;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ import util.validacaoException;
 
 
 
-public class VendaDAO implements crud<Usuario>{
+public class VendaDAO implements crud<Venda>{
 
     @Override
     public void excluir(Integer numero) {
@@ -49,11 +50,11 @@ public class VendaDAO implements crud<Usuario>{
     @Override
     public List<Venda> listar() throws SQLException{
         Connection conexao = ConexaoBD.getConnection();
-        PreparedStatement ps = conexao.prepareStatement("SELECT NUMERO,DATAEMISSAO,ENTRADA,SAIDA,PRECO  FROM USUARIO");
+        PreparedStatement ps = conexao.prepareStatement("SELECT NUMERO,DATAEMISSAO,ENTRADA,SAIDA,PRECO FROM VENDA");
         ResultSet rs = ps.executeQuery();
         List<Venda> venda = new ArrayList();
         while(rs.next()){
-            venda.add(new Usuario(rs.getInt(1), rs.getString(2),rs.getString(3),rs.getString(4)));
+            venda.add(new Venda(rs.getInt(1), rs.getDate(2),rs.getDate(3),rs.getDate(4),rs.getDouble(5)));
        
         }
     return venda;   
@@ -61,24 +62,24 @@ public class VendaDAO implements crud<Usuario>{
     
    
     @Override
-    public void salvar(Usuario usuario) throws validacaoException, SQLException, ClassNotFoundException {
+    public void salvar(Venda venda) throws validacaoException, SQLException, ClassNotFoundException {
         Connection conexao = ConexaoBD.getConnection();
-        PreparedStatement ps = conexao.prepareStatement("INSERT INTO CLIENTE (NOME,USER,SENHA) VALUES(?,?,?)");
-        ps.setString(1, usuario.getNome());
-        ps.setString(2, usuario.getUser());
-        ps.setString(3, usuario.getSenha());
-        
+        PreparedStatement ps = conexao.prepareStatement("INSERT INTO VENDA (DATAEMISSAO,ENTRADA,SAIDA,PRECO) VALUES(?,?,?,?)");
+        ps.setDate(1, (Date) venda.getDataEmissao());
+        ps.setDate(2, (Date) venda.getEntrada());
+        ps.setDate(3, (Date) venda.getSaida());
+        ps.setDouble(4, venda.getPreco());
         ps.execute(); 
     }
 
     @Override
-    public void atualizar(Usuario usuario) throws validacaoException, SQLException, ClassNotFoundException {
+    public void atualizar(Venda venda) throws validacaoException, SQLException, ClassNotFoundException {
         Connection conexao = ConexaoBD.getConnection();
-        PreparedStatement ps = conexao.prepareStatement("UPDATE USUARIO SET NOME=?,USER=?,SENHA=? WHERE ID=?");
-        ps.setString(1, usuario.getNome());
-        ps.setString(2, usuario.getUser());
-        ps.setString(3, usuario.getSenha());
-        ps.setInt(5, usuario.getId());
+        PreparedStatement ps = conexao.prepareStatement("UPDATE VENDA SET SAIDA=?, PRECO=? WHERE NUMERO=?");
+        ps.setDate(1, (Date) venda.getSaida());
+        ps.setDouble(2, venda.getPreco());
+        
+        ps.setInt(3, venda.getNumero());
         ps.execute();
     }
 

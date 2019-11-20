@@ -50,5 +50,7 @@ public class Cliente <T> extends Pessoa{
         this.placa = placa;
     }
     
-    
+    public boolean mensal (){
+        return true;
+    }
 }

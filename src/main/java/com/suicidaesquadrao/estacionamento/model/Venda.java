@@ -3,26 +3,28 @@ package com.suicidaesquadrao.estacionamento.model;
 
 import java.util.Date;
 
-public class Venda <t> {
+public class Venda <T> {
     
     private int numero;
     private Date dataEmissao;
     private Date entrada;
     private Date saida;
     private Imposto imposto;
-    private Tabela preco;
+    private double preco;
 
     public Venda() {
     }
 
-    public Venda(int numero, Date dataEmissao, Date entrada, Date saida, Imposto imposto) {
+    public Venda(int numero, Date dataEmissao, Date entrada, Date saida,double preco) {
         this.numero = numero;
         this.dataEmissao = dataEmissao;
         this.entrada = entrada;
         this.saida = saida;
-        this.imposto = imposto;
-        
+        this.preco = preco;
     }
+
+    
+    
     
      
     public int getNumero() {
@@ -58,7 +60,12 @@ public class Venda <t> {
     }
 
     
+    
     public Imposto getImposto() {
+        return imposto;
+    }
+    
+    public Imposto getImposto(int i) {
         return imposto;
     }
 
@@ -66,11 +73,15 @@ public class Venda <t> {
         this.imposto = imposto;
     }
 
-    public Tabela getPreco() {
+    public double getPreco() {
+        return preco;
+    }
+    
+    public double getPreco(int i) {
         return preco;
     }
 
-    public void setPreco(Tabela preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 

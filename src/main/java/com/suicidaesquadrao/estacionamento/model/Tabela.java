@@ -1,7 +1,7 @@
 
 package com.suicidaesquadrao.estacionamento.model;
 
-public class Tabela {
+public class Tabela <T>{
   
    private double precoHora;
    private double precoDiario;
@@ -9,7 +9,13 @@ public class Tabela {
 
     public Tabela() {
     }
-   
+
+    public Tabela(double precoHora, double precoDiario, double precoMensal) {
+        this.precoHora = precoHora;
+        this.precoDiario = precoDiario;
+        this.precoMensal = precoMensal;
+    }
+     
     
     public double getPrecoHora() {
         return precoHora;
