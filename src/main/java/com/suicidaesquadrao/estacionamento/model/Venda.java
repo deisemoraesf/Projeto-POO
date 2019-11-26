@@ -3,16 +3,18 @@ package com.suicidaesquadrao.estacionamento.model;
 
 import java.util.Date;
 
-public class Venda <T> {
+public class Venda <T> extends Cliente{
     
     private int numero;
     private Date dataEmissao;
     private Date entrada;
     private Date saida;
+    private String descricao;
     private Imposto imposto;
     private double preco;
 
     public Venda() {
+        super();
     }
 
     public Venda(int numero, Date dataEmissao, Date entrada, Date saida,double preco) {
@@ -24,9 +26,6 @@ public class Venda <T> {
     }
 
     
-    
-    
-     
     public int getNumero() {
         return numero;
     }
@@ -59,8 +58,6 @@ public class Venda <T> {
         this.saida = saida;
     }
 
-    
-    
     public Imposto getImposto() {
         return imposto;
     }
@@ -85,20 +82,33 @@ public class Venda <T> {
         this.preco = preco;
     }
 
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
     
+    
+    public double calculaHora (Date entrada, Date saida){
+       double  horas;
+       long inicial = entrada.getTime();
+       long fim = saida.getTime();
+       return horas = (double)(fim - inicial)/1000/60/60; 
+    }
 
     
-
-    public void processarRecibo (Date entrada, Date saida){
-        long inicial = entrada.getTime();
-        long fim = saida.getTime();
-        double horas = (double)(fim - inicial)/1000/60/60;
+    public void processarRecibo (double horas){
+        
         Tabela preco = new Tabela();
         double pagamento;
         if (horas > 12.0){
             pagamento = preco.getPrecoDiario();
+            descricao = "Cobrança por preço diário";
         }else {
             pagamento = Math.ceil(horas)*preco.getPrecoHora();
+            descricao = "Cobrança por hora";
         }
         double taxaImposto = imposto.imposto(pagamento);
         

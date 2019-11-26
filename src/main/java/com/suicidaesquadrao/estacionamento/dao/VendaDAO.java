@@ -1,6 +1,7 @@
 package com.suicidaesquadrao.estacionamento.dao;
 
 
+import com.suicidaesquadrao.estacionamento.model.Cliente;
 import com.suicidaesquadrao.estacionamento.model.Usuario;
 import com.suicidaesquadrao.estacionamento.model.Venda;
 import java.sql.Connection;
@@ -83,5 +84,25 @@ public class VendaDAO implements crud<Venda>{
         ps.execute();
     }
 
-    
+    public Cliente buscar(String cpf){
+        Cliente cliente = new Cliente();
+        String sql = "SELECT * FROM cliente WHERE cpf=" + cpf;
+        try{
+            Connection conexao = ConexaoBD.getConnection();
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+            cliente.setId(rs.getInt(1));
+            cliente.setNome(rs.getString(2));
+            cliente.setCpf(rs.getString(3));
+            cliente.setVeiculo(rs.getString(4));
+            cliente.setPlaca(rs.getString(5));
+            
+            }
+        }catch(Exception e){  
+            System.out.println("Erro: "+ e.getMessage());
+        }
+        return cliente;
+    }
 }

@@ -9,6 +9,10 @@ public class Cliente <T> extends Pessoa{
     private String veiculo;
     private String placa;
 
+    public Cliente() {
+        super();
+    }
+
     public Cliente(int id, String nome,String cpf, String veiculo, String placa) {
         super(id, nome);
         this.cpf = cpf;
