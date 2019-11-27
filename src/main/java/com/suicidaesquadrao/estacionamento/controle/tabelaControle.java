@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.suicidaesquadrao.estacionamento.controle;
 
-import com.suicidaesquadrao.estacionamento.dao.ClienteDAO;
-import com.suicidaesquadrao.estacionamento.model.Cliente;
+import com.suicidaesquadrao.estacionamento.dao.UsuarioDAO;
+import com.suicidaesquadrao.estacionamento.model.Usuario;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -16,13 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import util.validacaoException;
 
-/**
- *
- * @author Deise
- */
-public class clienteControle extends HttpServlet {
+
+public class tabelaControle extends HttpServlet {
     
-    private ClienteDAO clienteDAO = new ClienteDAO();
+    private TabelaDAO tabelaDAO = new TabelaDAO();
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -40,17 +33,17 @@ public class clienteControle extends HttpServlet {
         try{
             if(acao!=null && acao.equals("excluir")){
             Integer idProduto = Integer.parseInt(id);
-            clienteDAO.excluir(idProduto);
+            usuarioDAO.excluir(idProduto);
             request.setAttribute("msg", "Excluído com sucesso!");
             }else if(acao!=null && acao.equals("editar")){
-            Integer idCliente = Integer.parseInt(id);
-            Cliente cliente = clienteDAO.listarId(idCliente);
-            request.setAttribute("cliente", cliente);
+            Integer idUsuario = Integer.parseInt(id);
+            Usuario usuario = usuarioDAO.listarId(idUsuario);
+            request.setAttribute("cliente", usuario);
             }else if(acao!=null && acao.equals("voltar")){
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/listarClientes.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/listarUsuario.jsp");
             dispatcher.forward(request, response); 
             }
-        request.setAttribute("produtos", clienteDAO.listar());
+        request.setAttribute("usurio", usuarioDAO.listar());
        
         }catch (SQLException ex){
             request.setAttribute("mensagem", "Erro de Banco de Dados: "+ ex.getMessage());
@@ -58,7 +51,7 @@ public class clienteControle extends HttpServlet {
         }catch (validacaoException ex){
             request.setAttribute("mensagem", "Erro de Dados: "+ ex.getMessage());
         }        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/listarClientes.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/listarUsuario.jsp");
         dispatcher.forward(request, response);
         
     }
@@ -68,23 +61,22 @@ public class clienteControle extends HttpServlet {
             throws ServletException, IOException {
         
         String nome= request.getParameter("nome");
-        String cpf=request.getParameter("cpf");
-        String veiculo=request.getParameter("veiculo");
-        String placa=request.getParameter("placa");
+        String usuario=request.getParameter("user");
+        String senha=request.getParameter("senha");
         String id = request.getParameter("id");
         
-        Cliente cliente = new Cliente (0,nome,cpf,veiculo,placa); 
+        Usuario usuario1 = new Usuario(0,nome,usuario,senha);
         
         if (id!=null || id!=""){
-            cliente.setId(Integer.parseInt(id));
+            usuario1.setId(Integer.parseInt(id));
         }
         try{
-            cliente.valida();
-            if(cliente.getId()!=0){
-                clienteDAO.atualizar(cliente);
+            usuario1.valida();
+            if(usuario1.getId()!=0){
+                usuarioDAO.atualizar(usuario1);
                 request.setAttribute("msg", "Atualizado com sucesso!");
             }else{
-                clienteDAO.salvar(cliente);
+                usuarioDAO.salvar(usuario1);
                 request.setAttribute("msg", "Salvo com sucesso!");
             }
         }catch(SQLException ex){
@@ -95,7 +87,7 @@ public class clienteControle extends HttpServlet {
             System.out.println("Erro Driver: "+ ex.getMessage());
         }
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/cliente.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/usuario.jsp");
         dispatcher.forward(request, response);
         
     }

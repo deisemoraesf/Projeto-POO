@@ -15,7 +15,7 @@ import util.validacaoException;
 
 
 
-public class UsuarioDAO implements crud<Usuario>{
+public class UsuarioDAO implements CRUD<Usuario>{
 
     @Override
     public void excluir(Integer idUsuario) {
