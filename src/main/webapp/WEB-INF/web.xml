@@ -2,11 +2,43 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>vendaControle</servlet-name>
+        <servlet-class>com.suicidaesquadrao.estacionamento.controle.vendaControle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>usuarioControle</servlet-name>
+        <servlet-class>com.suicidaesquadrao.estacionamento.controle.usuarioControle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>tabelaControle</servlet-name>
+        <servlet-class>com.suicidaesquadrao.estacionamento.controle.tabelaControle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>clienteControle</servlet-name>
         <servlet-class>com.suicidaesquadrao.estacionamento.controle.clienteControle</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Sessao</servlet-name>
+        <servlet-class>com.suicidaesquadrao.estacionamento.controle.Sessao</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>vendaControle</servlet-name>
         <url-pattern>/vendaControle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>usuarioControle</servlet-name>
+        <url-pattern>/usuarioControle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>tabelaControle</servlet-name>
+        <url-pattern>/tabelaControle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>clienteControle</servlet-name>
+        <url-pattern>/clienteControle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Sessao</servlet-name>
+        <url-pattern>/Sessao</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

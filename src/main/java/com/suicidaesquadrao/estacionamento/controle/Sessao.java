@@ -52,7 +52,7 @@ public class Sessao extends HttpServlet {
                 HttpSession objsesion = request.getSession(false);
                 objsesion.setAttribute("usuario", usu);
                 
-                RequestDispatcher dispatcher = request.getRequestDispatcher("main.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("menu.jsp");
                 dispatcher.forward(request, response);
                 
             } else {

@@ -20,7 +20,7 @@ import util.validacaoException;
 public class VendaDAO implements CRUD<Venda>{
 
     @Override
-    public void excluir(Integer numero) {
+    public void excluir(Integer numero) throws SQLException, ClassNotFoundException {
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps;
         try {
@@ -33,7 +33,7 @@ public class VendaDAO implements CRUD<Venda>{
         
     }
     @Override
-    public Usuario listarId(Integer numero) throws SQLException, validacaoException{
+    public Usuario listarId(Integer numero) throws SQLException, validacaoException, ClassNotFoundException{
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps;
         
@@ -49,7 +49,7 @@ public class VendaDAO implements CRUD<Venda>{
     
     
     @Override
-    public List<Venda> listar() throws SQLException{
+    public List<Venda> listar() throws SQLException, ClassNotFoundException{
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps = conexao.prepareStatement("SELECT NUMERO,DATAEMISSAO,ENTRADA,SAIDA,PRECO FROM VENDA");
         ResultSet rs = ps.executeQuery();

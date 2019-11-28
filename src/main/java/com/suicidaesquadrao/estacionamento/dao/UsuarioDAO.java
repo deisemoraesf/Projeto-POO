@@ -1,7 +1,6 @@
 package com.suicidaesquadrao.estacionamento.dao;
 
 
-import static com.suicidaesquadrao.estacionamento.dao.ConexaoBD.getConnection;
 import com.suicidaesquadrao.estacionamento.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +17,7 @@ import util.validacaoException;
 public class UsuarioDAO implements CRUD<Usuario>{
 
     @Override
-    public void excluir(Integer idUsuario) {
+    public void excluir(Integer idUsuario) throws SQLException, ClassNotFoundException {
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps;
         try {
@@ -31,7 +30,7 @@ public class UsuarioDAO implements CRUD<Usuario>{
         
     }
     @Override
-    public Usuario listarId(Integer idUsuario) throws SQLException, validacaoException{
+    public Usuario listarId(Integer idUsuario) throws SQLException, validacaoException, ClassNotFoundException{
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps;
         
@@ -47,7 +46,7 @@ public class UsuarioDAO implements CRUD<Usuario>{
     
     
     @Override
-    public List<Usuario> listar() throws SQLException{
+    public List<Usuario> listar() throws SQLException, ClassNotFoundException{
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps = conexao.prepareStatement("SELECT ID,NOME,USER,SENHA FROM USUARIO");
         ResultSet rs = ps.executeQuery();
@@ -89,15 +88,10 @@ public class UsuarioDAO implements CRUD<Usuario>{
         try{
             
             String consulta= "select * from usuario where usuario=? and senha=?";
-            pst = getConnection().prepareStatement(consulta);
+            pst = conexao.prepareStatement(consulta);
             pst.setString(1, usuario);
             pst.setString(2, senha);
             rs = pst.executeQuery();
-                     
-            if(rs.absolute(1)){
-                System.out.println("ENTORU NO ABSOLUTE FLAVIÃOOOOOO");
-                return true;
-            } 
                       
         } catch (Exception e)  {            
             System.err.println("ERRO JAVA " + e);
@@ -105,7 +99,7 @@ public class UsuarioDAO implements CRUD<Usuario>{
                 
         finally {
             try {
-                if(getConnection() != null) getConnection().close();
+                if(conexao != null) conexao.close();
                 if(pst != null) pst.close();
                 if(rs != null) rs.close(); 
             } catch (Exception e ){

@@ -15,7 +15,7 @@ import util.validacaoException;
 public class TabelaDAO {
 
  
-    public List<Tabela> listar() throws SQLException{
+    public List<Tabela> listar() throws SQLException, ClassNotFoundException{
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps = conexao.prepareStatement("SELECT PRECOHORA,PRECODIARIO,PRECOMENSAL FROM TABELA");
         ResultSet rs = ps.executeQuery();
