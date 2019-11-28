@@ -5,6 +5,8 @@ import com.suicidaesquadrao.estacionamento.dao.UsuarioDAO;
 import com.suicidaesquadrao.estacionamento.model.Usuario;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +35,11 @@ public class usuarioControle extends HttpServlet {
         try{
             if(acao!=null && acao.equals("excluir")){
             Integer idProduto = Integer.parseInt(id);
-            usuarioDAO.excluir(idProduto);
+                try {
+                    usuarioDAO.excluir(idProduto);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(usuarioControle.class.getName()).log(Level.SEVERE, null, ex);
+                }
             request.setAttribute("msg", "Excluído com sucesso!");
             }else if(acao!=null && acao.equals("editar")){
             Integer idUsuario = Integer.parseInt(id);
@@ -50,7 +56,9 @@ public class usuarioControle extends HttpServlet {
         
         }catch (validacaoException ex){
             request.setAttribute("mensagem", "Erro de Dados: "+ ex.getMessage());
-        }        
+        } catch (ClassNotFoundException ex) {        
+            Logger.getLogger(usuarioControle.class.getName()).log(Level.SEVERE, null, ex);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/listarUsuario.jsp");
         dispatcher.forward(request, response);
         

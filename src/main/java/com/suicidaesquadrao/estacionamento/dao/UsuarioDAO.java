@@ -14,7 +14,7 @@ import util.validacaoException;
 
 
 
-public class UsuarioDAO implements CRUD<Usuario>{
+public class UsuarioDAO implements Crud<Usuario>{
 
     @Override
     public void excluir(Integer idUsuario) throws SQLException, ClassNotFoundException {

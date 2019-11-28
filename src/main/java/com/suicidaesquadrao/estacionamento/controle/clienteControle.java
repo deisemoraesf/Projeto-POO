@@ -1,14 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.suicidaesquadrao.estacionamento.controle;
 
-import com.suicidaesquadrao.estacionamento.dao.ClienteDAO;
+import com.suicidaesquadrao.estacionamento.dao.ClienteDao;
 import com.suicidaesquadrao.estacionamento.model.Cliente;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,13 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import util.validacaoException;
 
-/**
- *
- * @author Deise
- */
+
 public class clienteControle extends HttpServlet {
     
-    private ClienteDAO clienteDAO = new ClienteDAO();
+    private ClienteDao clienteDAO = new ClienteDao();
 
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -57,7 +52,9 @@ public class clienteControle extends HttpServlet {
         
         }catch (validacaoException ex){
             request.setAttribute("mensagem", "Erro de Dados: "+ ex.getMessage());
-        }        
+        } catch (ClassNotFoundException ex) {        
+            Logger.getLogger(clienteControle.class.getName()).log(Level.SEVERE, null, ex);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/listarClientes.jsp");
         dispatcher.forward(request, response);
         
