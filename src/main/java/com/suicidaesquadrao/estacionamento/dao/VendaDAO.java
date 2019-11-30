@@ -17,7 +17,7 @@ import util.validacaoException;
 
 
 
-public class VendaDAO implements Crud<Venda>{
+public class VendaDAO implements crud<Venda>{
 
     @Override
     public void excluir(Integer numero) throws SQLException, ClassNotFoundException {
