@@ -1,22 +1,36 @@
 
 package com.suicidaesquadrao.estacionamento.model;
 
+import util.validacaoException;
+
 public class Tabela <T>{
   
    private double precoHora;
    private double precoDiario;
-   private double precoMensal; 
+   private double precoMensal;
+   private int id;
 
     public Tabela() {
     }
 
-    public Tabela(double precoHora, double precoDiario, double precoMensal) {
+    public Tabela(int id, double precoHora, double precoDiario, double precoMensal) {
         this.precoHora = precoHora;
         this.precoDiario = precoDiario;
         this.precoMensal = precoMensal;
+        this.id = id;
     }
-     
     
+    
+    public void valida () throws validacaoException{
+        if(precoHora<=0){
+            throw new validacaoException("O campo é obrigatório");
+        }else if(precoDiario<=0){
+            throw new validacaoException("O campo é obrigatório");
+        }else if(precoMensal<=0){
+            throw new validacaoException("O campo é obrigatório");
+        }
+    }
+
     public double getPrecoHora() {
         return precoHora;
     }
@@ -40,7 +54,19 @@ public class Tabela <T>{
     public void setPrecoMensal(double precoMensal) {
         this.precoMensal = precoMensal;
     }
-   
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+     
+    
+
    
     
 }
