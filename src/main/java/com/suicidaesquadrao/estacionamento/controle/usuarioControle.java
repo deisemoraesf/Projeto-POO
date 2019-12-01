@@ -38,8 +38,8 @@ public class usuarioControle extends HttpServlet {
             
             }else if(acao!=null && acao.equals("editar")){
             Integer idUsuario = Integer.parseInt(id);
-            Usuario usuario = UsuarioDAO.listarId(idUsuario);
-            request.setAttribute("usuario", usuario);
+            Usuario usuarios = UsuarioDAO.listarId(idUsuario);
+            request.setAttribute("usuarios", usuarios);
             request.getRequestDispatcher("/WEB-INF/usuario.jsp").forward(request, response);
             
             }else if(acao!=null && acao.equals("voltarmenu")){

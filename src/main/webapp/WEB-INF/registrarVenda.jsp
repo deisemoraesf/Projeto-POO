@@ -14,22 +14,22 @@
                         <div class="d-flex ml-auto">
                             <div class="col-sm-100">
                                 <div class="card">
-                                <form action="vendaControle?menu=Venda" method="POST">
+                                <form action="vendaControle?menu=NovaVenda" method="POST">
                                 <div class="card-body">  
   
                         <!--DADOS DO CLIENTE-->                            
-                                <div class="form-group"><label>Dados Cliente</label></div>                       
+                                <div class="form-group" var="c" items="${cliente}"><label>Dados Cliente</label></div>                       
                             <div class="form-group d-flex">     
                                 <div class="col-sm-6 d-flex">
-                                <input type="text" name="cpf" value="${Cliente.getCpf()}" class="form-control" placeholder="CPF" required>                                
+                                <input type="text" name="cpf" value="${cliente.cpf}" class="form-control" placeholder="CPF" required>                                
                                 <input type="submit" name="acao" value="buscarCliente" class="btn btn-outline-info">
                                 <br>
                                 </div>
                                 <div class="col-sm-6">
-                                <input type="text" name="id" value="${Cliente.getId()}" placeholder="Id Cliente" class="form-control"> 
-                                <input type="text" name="nome" value="${Cliente.getNome()}" placeholder="Nome Cliente" class="form-control">
-                                <input type="text" name="veiculo" value="${Cliente.getVeiculo()}" placeholder="Modelo do Veículo" class="form-control">
-                                <input type="text" name="placa" value="${Cliente.getPlaca()}" placeholder="Placa" class="form-control">
+                                <input type="text" name="id" value="${cliente.id}" placeholder="Id Cliente" class="form-control"> 
+                                <input type="text" name="nome" value="${cliente.nome}" placeholder="Nome Cliente" class="form-control">
+                                <input type="text" name="veiculo" value="${cliente.veiculo}" placeholder="Modelo do Veículo" class="form-control">
+                                <input type="text" name="placa" value="${cliente.placa}" placeholder="Placa" class="form-control">
                                 </div>
                             </div>  
     
@@ -72,7 +72,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="v" items="${Venda}">
+                                <c:forEach var="v" items="${venda}">
                                 <tr>
                                     <td>${v.getNumero()}</td>
                                     <td>${v.getId()}</td>

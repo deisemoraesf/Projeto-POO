@@ -16,7 +16,12 @@ public class Venda <T> extends Cliente{
     public Venda() {
         super();
     }
-
+    public Venda(int numero, int id_cliente, String nome_cliente, String descricao,double preco) {
+        this.numero = numero;
+        this.preco = preco;
+    }
+    
+    
     public Venda(int numero, Date dataEmissao, Date entrada, Date saida,double preco) {
         this.numero = numero;
         this.dataEmissao = dataEmissao;

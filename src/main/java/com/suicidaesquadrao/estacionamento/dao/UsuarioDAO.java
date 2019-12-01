@@ -34,7 +34,7 @@ public class UsuarioDAO implements crud<Usuario>{
         
             ps = conexao.prepareStatement("SELECT id_usuario,nome_usuario,login,senha FROM usuario WHERE id_usuario=?");
             ps.setInt(1, idUsuario);
-             ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             if(rs.next()){
             return new Usuario(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4));   
             }

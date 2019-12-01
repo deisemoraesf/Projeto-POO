@@ -24,7 +24,7 @@ public class VendaDAO implements crud<Venda>{
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps;
         try {
-            ps = conexao.prepareStatement("DELETE FROM USUARIO WHERE ID=?");
+            ps = conexao.prepareStatement("DELETE FROM venda WHERE numero=?");
             ps.setInt(1, numero);
             ps.execute();
         } catch (SQLException ex) {
@@ -37,7 +37,8 @@ public class VendaDAO implements crud<Venda>{
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps;
         
-            ps = conexao.prepareStatement("SELECT ID,NOME,USER,SENHA WHERE ID=?");
+            ps = conexao.prepareStatement("SELECT numero,dataEmissao,entrada, saida,preco,id_cliente_venda"
+                    + "WHERE numero=?");
             ps.setInt(1, numero);
              ResultSet rs = ps.executeQuery();
             if(rs.next()){
@@ -51,7 +52,7 @@ public class VendaDAO implements crud<Venda>{
     @Override
     public List<Venda> listar() throws SQLException, ClassNotFoundException{
         Connection conexao = ConexaoBD.getConnection();
-        PreparedStatement ps = conexao.prepareStatement("SELECT NUMERO,DATAEMISSAO,ENTRADA,SAIDA,PRECO FROM VENDA");
+        PreparedStatement ps = conexao.prepareStatement("SELECT numero,dataEmissao,ENTRADA,SAIDA,PRECO FROM VENDA");
         ResultSet rs = ps.executeQuery();
         List<Venda> venda = new ArrayList();
         while(rs.next()){
@@ -84,25 +85,17 @@ public class VendaDAO implements crud<Venda>{
         ps.execute();
     }
 
-    public Cliente buscar(String cpf){
-        Cliente cliente = new Cliente();
-        String sql = "SELECT * FROM cliente WHERE cpf=" + cpf;
-        try{
-            Connection conexao = ConexaoBD.getConnection();
-            PreparedStatement ps = conexao.prepareStatement(sql);
+    public Cliente buscar(String cpf) throws SQLException, ClassNotFoundException, Exception{
+        Connection conexao = ConexaoBD.getConnection();
+        PreparedStatement ps;
+        
+            ps = conexao.prepareStatement("SELECT id_cliente,nome_cliente,cpf, veiculo,placa from cliente"
+                    + "WHERE cpf=?");
+            ps.setString(1, cpf);
             ResultSet rs = ps.executeQuery();
-            
-            while(rs.next()){
-            cliente.setId(rs.getInt(1));
-            cliente.setNome(rs.getString(2));
-            cliente.setCpf(rs.getString(3));
-            cliente.setVeiculo(rs.getString(4));
-            cliente.setPlaca(rs.getString(5));
-            
+            if(rs.next()){
+            return new Cliente(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));   
             }
-        }catch(Exception e){  
-            System.out.println("Erro: "+ e.getMessage());
-        }
-        return cliente;
-    }
+            throw new Exception("Não achou cliente com código");
+            }
 }
