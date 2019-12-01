@@ -49,7 +49,7 @@ public class clienteControle extends HttpServlet {
             }else if(acao!=null && acao.equals("voltarlista")){
             request.setAttribute("cliente", clienteDAO.listar());    
             request.getRequestDispatcher("/WEB-INF/listaCliente.jsp").forward(request, response);
-            
+            request.setAttribute("cliente", clienteDAO.listar());
             
             }else if(acao!=null && acao.equals("cadastrar")){
             request.getRequestDispatcher("/WEB-INF/cliente.jsp").forward(request, response);
@@ -73,13 +73,14 @@ public class clienteControle extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        
         String nome= request.getParameter("nome");
         String cpf=request.getParameter("cpf");
         String veiculo=request.getParameter("veiculo");
         String placa=request.getParameter("placa");
         String id = request.getParameter("id");
         
-        Cliente cliente = new Cliente(cpf, veiculo, placa, nome, 0); 
+        Cliente cliente = new Cliente(0,nome,cpf, veiculo, placa); 
         
         if (id!=null && !id.equals("")){    
             cliente.setId(Integer.parseInt(id));
@@ -89,13 +90,14 @@ public class clienteControle extends HttpServlet {
             if(cliente.getId()!=0){
                 clienteDAO.atualizar(cliente);
                 request.setAttribute("msg", "Atualizado com sucesso!");
-                //request.setAttribute("cliente", clienteDAO.listar());
             }else{
                 clienteDAO.salvar(cliente);
                 request.setAttribute("msg", "Salvo com sucesso!");
                 request.setAttribute("cliente", clienteDAO.listar());
                 request.getRequestDispatcher("/WEB-INF/listaCliente.jsp").forward(request, response);
             }
+            request.setAttribute("cliente", clienteDAO.listar());
+            
         }catch(validacaoException ex){
             request.setAttribute("msg", "Erro de Validação dos campos" +ex.getMessage());
             request.setAttribute("cliente", cliente);
@@ -107,18 +109,6 @@ public class clienteControle extends HttpServlet {
             request.setAttribute("cliente", cliente);  
         }
         
-        
-        try{
-            request.setAttribute("cliente", clienteDAO.listar());
-        }catch (SQLException ex){
-           request.setAttribute("msg", "Erro de Banco de Dados: "+ ex.getMessage());
-           request.setAttribute("cliente", cliente);
-        /*}catch (ClassNotFoundException ex){
-            request.setAttribute("msg", "Erro de Driver: "+ ex.getMessage());
-            request.setAttribute("cliente", cliente);*/
-        } catch (ClassNotFoundException ex) {  
-            Logger.getLogger(clienteControle.class.getName()).log(Level.SEVERE, null, ex);
-        }
         request.getRequestDispatcher("/WEB-INF/listaCliente.jsp").forward(request, response);
     }
 }

@@ -5,8 +5,6 @@ import com.suicidaesquadrao.estacionamento.dao.UsuarioDAO;
 import com.suicidaesquadrao.estacionamento.model.Usuario;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,31 +33,33 @@ public class usuarioControle extends HttpServlet {
         try{
             if(acao!=null && acao.equals("excluir")){
             Integer idProduto = Integer.parseInt(id);
-                try {
-                    usuarioDAO.excluir(idProduto);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(usuarioControle.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            request.setAttribute("msg", "Excluído com sucesso!");
+            usuarioDAO.excluir(idProduto);
+            
             }else if(acao!=null && acao.equals("editar")){
             Integer idUsuario = Integer.parseInt(id);
             Usuario usuario = usuarioDAO.listarId(idUsuario);
-            request.setAttribute("cliente", usuario);
+            request.setAttribute("usuario", usuario);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/usuario.jsp");
+            dispatcher.forward(request, response);
+            
             }else if(acao!=null && acao.equals("voltar")){
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/listarUsuario.jsp");
-            dispatcher.forward(request, response); 
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/listaUsuario.jsp");
+            dispatcher.forward(request, response);
+            
+            }else if(acao!=null && acao.equals("voltar")){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/Usuario.jsp");
+            dispatcher.forward(request, response);
             }
-        request.setAttribute("usurio", usuarioDAO.listar());
+            
+        request.setAttribute("usuario", usuarioDAO.listar());
        
         }catch (SQLException ex){
             request.setAttribute("mensagem", "Erro de Banco de Dados: "+ ex.getMessage());
         
-        }catch (validacaoException ex){
+        }catch (validacaoException | ClassNotFoundException ex){
             request.setAttribute("mensagem", "Erro de Dados: "+ ex.getMessage());
-        } catch (ClassNotFoundException ex) {        
-            Logger.getLogger(usuarioControle.class.getName()).log(Level.SEVERE, null, ex);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/listarUsuario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/listaUsuario.jsp");
         dispatcher.forward(request, response);
         
     }
@@ -85,17 +85,20 @@ public class usuarioControle extends HttpServlet {
                 request.setAttribute("msg", "Atualizado com sucesso!");
             }else{
                 usuarioDAO.salvar(usuario1);
+                request.setAttribute("usuario", usuarioDAO.listar());
                 request.setAttribute("msg", "Salvo com sucesso!");
             }
+            request.setAttribute("usuario", usuarioDAO.listar());
+            
         }catch(SQLException ex){
             System.out.println("Erro banco de dados: "+ex.getMessage()); 
         } catch (validacaoException ex) {
-            System.out.println("Erro ao validar Campo: "+ ex.getMessage());;
+            System.out.println("Erro ao validar Campo: "+ ex.getMessage());
         } catch (ClassNotFoundException ex) {
             System.out.println("Erro Driver: "+ ex.getMessage());
         }
         
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/usuario.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INFlistaUsuario.jsp");
         dispatcher.forward(request, response);
         
     }

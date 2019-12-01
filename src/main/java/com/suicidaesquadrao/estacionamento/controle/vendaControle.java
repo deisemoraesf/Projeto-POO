@@ -7,8 +7,7 @@ import com.suicidaesquadrao.estacionamento.model.Venda;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,13 +22,15 @@ public class vendaControle extends HttpServlet {
     VendaDAO venda = new VendaDAO();
     Cliente cliente = new Cliente();
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, validacaoException, ClassNotFoundException {
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
      response.setContentType("text/html;charset=UTF-8");
         
      String acao=request.getParameter("acao");
      String numero=request.getParameter("NroVenda");
-    
+     
+     try{
      if (acao!=null && acao.equals("buscarCliente")){
          String cpf=request.getParameter("cpf");
          cliente.setCpf(cpf);
@@ -54,29 +55,25 @@ public class vendaControle extends HttpServlet {
          venda.excluir(num);
          request.setAttribute("cliente", v);
      }
-    
+     } catch (SQLException | validacaoException | ClassNotFoundException ex) {
+             request.setAttribute("mensagem", ex.getMessage());
+         }
+     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/registrarVenda.jsp");
+        dispatcher.forward(request, response);
     }
         
    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException | validacaoException | ClassNotFoundException ex) {
-            Logger.getLogger(vendaControle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException | validacaoException | ClassNotFoundException ex) {
-            Logger.getLogger(vendaControle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     

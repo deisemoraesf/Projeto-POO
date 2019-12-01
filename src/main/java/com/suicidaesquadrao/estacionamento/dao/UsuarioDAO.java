@@ -21,7 +21,7 @@ public class UsuarioDAO implements crud<Usuario>{
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps;
         try {
-            ps = conexao.prepareStatement("DELETE FROM USUARIO WHERE ID=?");
+            ps = conexao.prepareStatement("DELETE FROM USUARIO WHERE ID_USUARIO=?");
             ps.setInt(1, idUsuario);
             ps.execute();
         } catch (SQLException ex) {
@@ -34,7 +34,7 @@ public class UsuarioDAO implements crud<Usuario>{
         Connection conexao = ConexaoBD.getConnection();
         PreparedStatement ps;
         
-            ps = conexao.prepareStatement("SELECT ID,NOME,USER,SENHA WHERE ID=?");
+            ps = conexao.prepareStatement("SELECT ID_USUARIO,NOME_USUARIO,USUARIO,SENHA FROM USUARIO WHERE ID_USUARIO=?");
             ps.setInt(1, idUsuario);
              ResultSet rs = ps.executeQuery();
             if(rs.next()){
@@ -48,7 +48,7 @@ public class UsuarioDAO implements crud<Usuario>{
     @Override
     public List<Usuario> listar() throws SQLException, ClassNotFoundException{
         Connection conexao = ConexaoBD.getConnection();
-        PreparedStatement ps = conexao.prepareStatement("SELECT ID,NOME,USER,SENHA FROM USUARIO");
+        PreparedStatement ps = conexao.prepareStatement("SELECT ID_USUARIO,NOME_USUARIO,USUARIO,SENHA FROM USUARIO");
         ResultSet rs = ps.executeQuery();
         List<Usuario> usuario = new ArrayList();
         while(rs.next()){
@@ -62,7 +62,7 @@ public class UsuarioDAO implements crud<Usuario>{
     @Override
     public void salvar(Usuario usuario) throws validacaoException, SQLException, ClassNotFoundException {
         Connection conexao = ConexaoBD.getConnection();
-        PreparedStatement ps = conexao.prepareStatement("INSERT INTO CLIENTE (NOME,USER,SENHA) VALUES(?,?,?)");
+        PreparedStatement ps = conexao.prepareStatement("INSERT INTO USUARIO (NOME_USUARIO,USUARIO,SENHA) VALUES(?,?,?)");
         ps.setString(1, usuario.getNome());
         ps.setString(2, usuario.getUser());
         ps.setString(3, usuario.getSenha());
@@ -73,7 +73,7 @@ public class UsuarioDAO implements crud<Usuario>{
     @Override
     public void atualizar(Usuario usuario) throws validacaoException, SQLException, ClassNotFoundException {
         Connection conexao = ConexaoBD.getConnection();
-        PreparedStatement ps = conexao.prepareStatement("UPDATE USUARIO SET NOME=?,USER=?,SENHA=? WHERE ID=?");
+        PreparedStatement ps = conexao.prepareStatement("UPDATE USUARIO SET NOME_USUARIO=?,USUARIO=?,SENHA=? WHERE ID_USUARIO=?");
         ps.setString(1, usuario.getNome());
         ps.setString(2, usuario.getUser());
         ps.setString(3, usuario.getSenha());
@@ -97,8 +97,8 @@ public class UsuarioDAO implements crud<Usuario>{
                 return true;
             }
                       
-        } catch (Exception e)  {            
-            System.err.println("ERRO JAVA " + e);
+        } catch (SQLException e)  {            
+            System.err.println("Erro: " + e.getMessage());
         } 
                 
         finally {
@@ -106,8 +106,8 @@ public class UsuarioDAO implements crud<Usuario>{
                 if(conexao != null) conexao.close();
                 if(pst != null) pst.close();
                 if(rs != null) rs.close(); 
-            } catch (Exception e ){
-                  System.err.println("Error 2 " + e);
+            } catch (SQLException e ){
+                  System.err.println("Erro: " + e.getMessage());
             }
         }
         

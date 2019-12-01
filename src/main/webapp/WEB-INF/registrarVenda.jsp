@@ -12,7 +12,7 @@
                         <h1>Venda</h1>
                         <hr>
                         <div class="d-flex ml-auto">
-                            <div class="col-sm-5">
+                            <div class="col-sm-100">
                                 <div class="card">
                                 <form action="vendaControle?menu=Venda" method="POST">
                                 <div class="card-body">  
@@ -22,7 +22,8 @@
                             <div class="form-group d-flex">     
                                 <div class="col-sm-6 d-flex">
                                 <input type="text" name="cpf" value="${Cliente.getCpf()}" class="form-control" placeholder="CPF" required>                                
-                                <input type="submit" name="acao" value="buscarCliente" class="btn btn-outline-info">  
+                                <input type="submit" name="acao" value="buscarCliente" class="btn btn-outline-info">
+                                <br>
                                 </div>
                                 <div class="col-sm-6">
                                 <input type="text" name="id" value="${Cliente.getId()}" placeholder="Id Cliente" class="form-control"> 
@@ -35,12 +36,12 @@
                         <!--DADOS DO SERVICO-->    
                             <div class="form-group"><label>Dados do Serviço</label></div>
                                 <div class="form-group d-flex">
-                                    <div class="col-sm-6 d-flex">
+                                    <div class="col-sm-15 d-flex">
                                         <label>Data de Entrada: </label><input type="text" name="entrada" class="form-control" placeholder="dd/mm/aa hh:ss" required>
                                         <label>Data de Saída: </label><input type="text" name="saida" class="form-control" placeholder="dd/mm/aa hh:ss" required>
                                         <div class="form-group">
                                             <div class="col-sm-3"><button type="submit" name="acao" value="inserirServico" class="btn btn-outline-info">Inserir</button>&nbsp;&nbsp;
-                                            <a href="main.jsp" class="btn btn-danger">Sair</a></div>
+                                            <a href="menu.jsp" class="btn btn-danger">Sair</a></div>
                                         </div>
                                     
                            
@@ -49,14 +50,14 @@
                                 </div>
                                 </div>
                             </div>
-                        <div class="col-sm-7">
+                        <div class="col-sm-100">
                         <div class="card">                    
                         <div class="card-body">
 
                             
                         <!--ITENS DA VENDA--> 
-                        <div class="d-flex col-sm-8 mr-auto"><label>Cliente:</label><input type="text" name="razao" value="${Cliente.getNome()}" class="form-control">
-                            <div class="d-flex col-sm-7 ml-auto"><label>Nº Venda:</label><input type="text" name="NroVenda" value="${Venda.numero}" class="form-control"></div>
+                        <div class="d-flex col-sm-100 mr-auto"><label>Cliente:</label><input type="text" name="razao" value="${Cliente.getNome()}" class="form-control">
+                            <div class="d-flex col-sm-100 mr-auto"><label>Nº Venda:</label><input type="text" name="NroVenda" value="${Venda.numero}" class="form-control"></div>
                                 </div> 
                         <table class="table table-hover">
                             <thead>
@@ -90,8 +91,8 @@
                         </div>
                         <div class="card-footer d-flex">
                             <div class="col-sm-6">
-                            <a href="ControladorPrincipal?menu=NovaVenda&acao=Finalizar" class="btn btn-success">Imprimir</a>    
-                            <a href="ControladorPrincipal?menu=NovaVenda&acao=Cancelar" class="btn btn-danger">Cancelar</a> 
+                            <a href="controleVenda?acao=salvar" class="btn btn-success">Imprimir</a>    
+                            <button type="reset" class="btn btn-danger">Cancelar</a> 
                             </div>
                         </div>
                            
