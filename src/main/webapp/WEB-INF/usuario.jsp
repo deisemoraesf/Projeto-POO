@@ -15,7 +15,7 @@
         <h1>Cadastro Usuario</h1>
         <hr>
         <div>
-            <form method="POST" action="usuarioControle.java">
+            <form method="POST" action="usuarioControle">
                 <label>Id: </label><input type="text" name="id">
                 <label>Nome: </label><input type="text" name="nome">
                 <label>Usuário: </label><input type="text" name="cpf">

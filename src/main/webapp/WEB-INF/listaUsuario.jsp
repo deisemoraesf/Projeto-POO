@@ -9,7 +9,7 @@
     <body>
         <h1>Usuarios</h1>
         <hr>
-        
+        <div class="container" method="POST" action="usuarioControle">
         <div name="menu">
             <div>Id</div>
             <div>Nome</div>
@@ -27,5 +27,6 @@
                 <div><a href=usuarioControle?acao=excluir&id=${u.id}>Excluir</a></div>
             </div>
         </c:forEach>
+        </div>
     </body>
 </html>

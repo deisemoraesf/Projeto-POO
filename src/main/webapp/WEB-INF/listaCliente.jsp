@@ -10,7 +10,7 @@
     <body>
         <h1>Clientes</h1>
         <hr>
-        
+        <div class="container" method="POST" action="clienteControle">
         <div name="menu">
             <div>Id</div>
             <div>Nome</div>
@@ -29,5 +29,6 @@
                 <div><a href=clienteControle?acao=excluir&id=${c.id}>Excluir</a></div>
             </div>
         </c:forEach>
+        </div>    
     </body>
 </html>

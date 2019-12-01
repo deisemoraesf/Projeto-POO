@@ -1,8 +1,3 @@
-<%-- 
-    Document   : tabela
-    Created on : 28/11/2019, 01:33:28
-    Author     : Deise
---%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,11 +11,12 @@
     <body>
         <h1>Tabela Preços</h1>
         <hr>
-        <form method="POST" action="tabelaControle.java">
-            <label>Preço por Hora: </label><input type="text" name="hora" class="form-control" placeholder="Preço por hora">
-            <label>Preço por Diário: </label><input type="text" name="diario" class="form-control" placeholder="Preço por dia">
-            <label>Preço por Mensal: </label><input type="text" name="mensal" class="form-control" placeholder="Preço mensal">
-        </form>
+        <form method="POST" action="tabelaControle">
+            <label>Preço por Hora: </label><input type="text" name="hora" class="form-control" placeholder="Preço por hora" required>
+            <label>Preço por Diário: </label><input type="text" name="diario" class="form-control" placeholder="Preço por dia" required>
+            <label>Preço por Mensal: </label><input type="text" name="mensal" class="form-control" placeholder="Preço mensal" required>
+            <br>
+                        
         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -39,10 +35,14 @@
                                     
                                     <td class="d-flex">
                                         <a href="tabelaControle?acao=editar" class="btn btn-warning">Editar</a><br>
-                                        <a href="tabelaControle?acao=voltar" class="btn btn-danger" style="margin-left: 10px;">Voltar</a>
+                                        
                                     </td>
                                 </tr>
                                 </c:forEach>
+            <a href="tabelaControle?acao=salvar" class="btn btn-success" style="margin-left: 10px;">Salvar</a>
+            <a href="tabelaControle?acao=voltar" class="btn btn-danger" style="margin-left: 10px;">Voltar</a>
+
+        </form>                        
                             </tbody>
                         </table>
     </body>

@@ -4,11 +4,13 @@ package com.suicidaesquadrao.estacionamento.controle;
 import com.suicidaesquadrao.estacionamento.dao.TabelaDAO;
 import com.suicidaesquadrao.estacionamento.model.Tabela;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.validacaoException;
 
 
 public class tabelaControle extends HttpServlet {
@@ -16,26 +18,28 @@ public class tabelaControle extends HttpServlet {
     private TabelaDAO tabelaDAO = new TabelaDAO();
 
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
-        
-        Double hora= Double.parseDouble(request.getParameter("hora"));
-        Double diario= Double.parseDouble(request.getParameter("diario"));
-        Double mensal= Double.parseDouble(request.getParameter("mensal"));
-        
+              
         String acao=request.getParameter("acao");
         
-        Tabela preco = new Tabela(hora,diario,mensal);
-        
         try{
+            if (acao==null || acao==""){
+                
+            }
             if(acao!=null && acao.equals("salvar")){
+                
+                Tabela preco = criTabela(request);
                 tabelaDAO.salvar(preco);
-                request.setAttribute("msg", "Salvo com sucesso!");
+                request.setAttribute("tabela",tabelaDAO.listar());
             }
             else if(acao!=null && acao.equals("editar")){
+                Tabela preco = criTabela(request);
                 tabelaDAO.atualizar(preco);
-                request.setAttribute("msg", "Atualizado com sucesso!");
+                request.setAttribute("tabela",tabelaDAO.listar());
             }
             else if(acao!=null && acao.equals("voltar")){
             RequestDispatcher dispatcher = request.getRequestDispatcher("/menu.jsp");
@@ -43,10 +47,27 @@ public class tabelaControle extends HttpServlet {
             }
             request.setAttribute("tabela",tabelaDAO.listar());
             
-        }catch(Exception e){
+        }catch(IOException | ClassNotFoundException | SQLException | ServletException | validacaoException e){
             System.out.println("Erro: "+e);
         }
+        
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/tabela.jsp");
+        dispatcher.forward(request, response);
     }
+    
+    private Tabela criTabela(HttpServletRequest request) {
+            double hora=Double.parseDouble(request.getParameter("hora"));
+            double diario= Double.parseDouble(request.getParameter("diario"));
+            double mensal= Double.parseDouble(request.getParameter("mensal"));
+            
+            Tabela preco = new Tabela(hora,diario,mensal);
+            
+            return preco;    
+    }
+
+    
+    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -14,7 +14,7 @@
                         <div class="d-flex ml-auto">
                             <div class="col-sm-5">
                                 <div class="card">
-                                <form action="ControladorPrincipal?menu=NovaVenda" method="POST">
+                                <form action="vendaControle?menu=Venda" method="POST">
                                 <div class="card-body">  
   
                         <!--DADOS DO CLIENTE-->                            
