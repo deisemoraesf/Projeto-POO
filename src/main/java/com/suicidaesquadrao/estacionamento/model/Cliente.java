@@ -10,10 +10,10 @@ public class Cliente <T> extends Pessoa{
     private String placa;
 
     public Cliente() {
-        super();
     }
+    
 
-    public Cliente(int id, String nome,String cpf, String veiculo, String placa) {
+    public Cliente(String cpf,String veiculo, String placa, String nome, int id) {
         super(id, nome);
         this.cpf = cpf;
         this.veiculo = veiculo;
@@ -54,7 +54,5 @@ public class Cliente <T> extends Pessoa{
         this.placa = placa;
     }
     
-    public boolean mensal (){
-        return true;
-    }
+    
 }

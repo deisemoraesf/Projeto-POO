@@ -14,7 +14,7 @@ import util.validacaoException;
 
 
 
-public class UsuarioDAO implements Crud<Usuario>{
+public class UsuarioDAO implements crud<Usuario>{
 
     @Override
     public void excluir(Integer idUsuario) throws SQLException, ClassNotFoundException {
@@ -92,6 +92,10 @@ public class UsuarioDAO implements Crud<Usuario>{
             pst.setString(1, usuario);
             pst.setString(2, senha);
             rs = pst.executeQuery();
+            
+            if(rs.absolute(1)){
+                return true;
+            }
                       
         } catch (Exception e)  {            
             System.err.println("ERRO JAVA " + e);
