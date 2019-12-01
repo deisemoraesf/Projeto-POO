@@ -1,7 +1,3 @@
-
-
-
-
 <%
 
     HttpSession objsession = request.getSession(true);
@@ -38,25 +34,25 @@
   
       <li class="nav-item">
          <strong> 
-             <a class="nav-link" class="btn btn-outline-light" href="clienteControle">Clientes</a>
+             <a class="nav-link" class="btn btn-outline-light" href="clienteControle" target="frame">Clientes</a>
          </strong>
       </li>
       
        <li class="nav-item">
          <strong> 
-        <a class="nav-link" href="usuarioControle">Usuario</a>
+        <a class="nav-link" href="usuarioControle" target="frame">Usuario</a>
         </strong>
       </li>
       
        <li class="nav-item">
            <strong>
-        <a class="nav-link" href="tabelaControle">Tabela</a>
+        <a class="nav-link" href="tabelaControle" target="frame">Tabela</a>
         </strong>
       </li>
       
        <li class="nav-item">
            <strong>
-        <a class="nav-link" href="vendaControle">Vendas</a>
+        <a class="nav-link" href="vendaControle" target="frame">Vendas</a>
            </strong>
       </li>
       
@@ -74,7 +70,7 @@
         </div>
   </div>
 </nav>
-        <div class="m-4" style="height: 550px;">
+        <div class="m-4" style="height: 850px;">
             <iframe name="frame" style="height: 100%; width: 100%"></iframe>             
         </div>  
         

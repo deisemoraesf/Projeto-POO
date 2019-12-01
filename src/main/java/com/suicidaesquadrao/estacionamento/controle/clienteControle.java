@@ -33,8 +33,8 @@ public class clienteControle extends HttpServlet {
         
         try{
             if(acao!=null && acao.equals("excluir")){
-            Integer idProduto = Integer.parseInt(id);
-            clienteDAO.excluir(idProduto);
+            Integer idCliente = Integer.parseInt(id);
+            clienteDAO.excluir(idCliente);
             request.setAttribute("msg", "Excluído com sucesso!");
             
             }else if(acao!=null && acao.equals("editar")){
@@ -73,14 +73,14 @@ public class clienteControle extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        
+        String id = request.getParameter("id");
         String nome= request.getParameter("nome");
         String cpf=request.getParameter("cpf");
         String veiculo=request.getParameter("veiculo");
         String placa=request.getParameter("placa");
-        String id = request.getParameter("id");
         
-        Cliente cliente = new Cliente(0,nome,cpf, veiculo, placa); 
+        
+        Cliente cliente = new Cliente(0,nome,cpf,veiculo,placa); 
         
         if (id!=null && !id.equals("")){    
             cliente.setId(Integer.parseInt(id));

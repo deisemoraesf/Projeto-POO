@@ -4,40 +4,43 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <title>Usuario</title>
     </head>
     <body>
-        <h1>Usuarios</h1>
+        <h1>Usuários</h1>
         <hr>
-        <form method="POST" action="usuarioControle">    
+            <div class="form-group"></div>                    
+                <div class="form-group d-flex">     
+                    <div class="col-sm-6">
+                       <a href="usuarioControle?acao=cadastrar" class="btn btn-success">Cadastrar</a> 
+                    </div>
+                    <div class="col-sm-6 d-flex">
+                        <input type="text" name="nome" value="" class="form-control" placeholder="Pesquisar por nome">                                
+                        <input type="submit" name="acao" value="Pesquisar" class="btn btn-outline-info">  
+                    </div>
+                </div>  
+        <br/>
         <table class="table table-hover">
             <tr>
-            <th>Id</th>
+            <th>ID</th>
             <th>Nome</th>
             <th>Login</th>
             <th>Senha</th>
             <th>Ação</th>
-            <th>Ação</th>
-           </tr>
-           
-            <c:forEach var="u" items="${Usuario}" >
+            </tr>
+            <c:forEach var="u" items="${usuario}">
                 <tr>
                     <td>${u.id}</td>
                     <td>${u.nome}</td>
-                    <td>${u.user}</td>
+                    <td>${u.login}</td>
                     <td>${u.senha}</td>
-                    
-                    <td><a href=usuarioControle?acao=editar&id=${u.id}>Editar</a></td>
-                    <td><a href=usuarioControle?acao=excluir&id=${u.id}>Excluir</a></td>
+                    <td class="d-flex">
+                    <a href=usuarioControle?acao=editar&id=${u.id} class="btn btn-info">Editar</a>&nbsp;&nbsp;
+                    <a href=usuarioControle?acao=excluir&id=${u.id} class="btn btn-danger">Excluir</a>
+                    </td>
                 </tr>
-              
             </c:forEach>
-        </table>         
-        </form>
-                <a href="usuarioControle?acao=salvar" class="btn btn-success" style="margin-left: 10px">Cadastrar</a>        
-                <a href="menu.jsp" class="btn btn-danger" style="margin-left:10px">Voltar</a>  
-        <br>
-                </body>
+        </table>
+    </body>
 </html>

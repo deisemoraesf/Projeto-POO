@@ -3,21 +3,21 @@ package com.suicidaesquadrao.estacionamento.model;
 
 public class Usuario <T> extends Pessoa {
     
-    private String user;
+    private String login;
     private String senha;
 
-    public Usuario( int id, String nome,String user, String senha) {
+    public Usuario( int id, String nome,String login, String senha) {
         super(id, nome);
-        this.user = user;
+        this.login = login;
         this.senha = senha;
     }
     
-    public String getUser() {
-        return user;
+    public String getLogin() {
+        return login;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getSenha() {

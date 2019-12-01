@@ -28,13 +28,12 @@
        
         <div>
             <form method="POST" action="clienteControle">
-                
-                <input type="hidden" name="id" value="${Cliente.id}"/>
-                <label>Id:</label>&nbsp;<input type="text" disabled name="id" value="${Cliente.id}"/><br><br>
-                <label>Nome:</label>&nbsp;<input type="text" name="nome" value="${Cliente.nome}"/><br><br>
-                <label>CPF:</label>&nbsp;<input type="text" name="cpf" value="${Cliente.cpf}"/><br><br>
-                <label>Veículo:</label>&nbsp;<input type="text" name="veiculo" value="${Cliente.veiculo}"/><br><br>
-                <label>Placa:</label>&nbsp;<input type="text" name="placa" value="${Cliente.placa}"/><br><br>
+                <input type="hidden" name="id" value="${cliente.id}"/>
+                <label>Id:</label>&nbsp;<input type="text" disabled name="id" value="${cliente.id}"/><br><br>
+                <label>Nome:</label>&nbsp;<input type="text" name="nome" value="${cliente.nome}"/><br><br>
+                <label>CPF:</label>&nbsp;<input type="text" name="cpf" value="${cliente.cpf}"/><br><br>
+                <label>Veículo:</label>&nbsp;<input type="text" name="veiculo" value="${cliente.veiculo}"/><br><br>
+                <label>Placa:</label>&nbsp;<input type="text" name="placa" value="${cliente.placa}"/><br><br>
                 
                 <button type="submit" class="btn btn-success" onclick="return Alerta()">Salvar</button>&nbsp
                 <button type="reset" value="Limpar" class="btn btn-primary">Limpar</button>

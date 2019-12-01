@@ -10,9 +10,16 @@
     <body>
         <h1>Clientes</h1>
         <hr>
-        <a href="clienteControle?acao=cadastrar" class="btn btn-success">Cadastrar</a>
-        <a href="clienteControle?acao=voltarmenu" class="btn btn-primary">Sair</a>
-        <br/>
+        <div class="form-group"></div>                    
+            <div class="form-group d-flex">     
+                <div class="col-sm-6">
+                    <a href="clienteControle?acao=cadastrar" class="btn btn-success">Cadastrar</a> 
+                </div>
+                <div class="col-sm-6 d-flex">
+                    <input type="text" name="cpf" value="" class="form-control" placeholder="Pesquisar por CPF">                                
+                    <input type="submit" name="acao" value="Pesquisar" class="btn btn-outline-info">  
+                </div>
+            </div>  
         <br/>
         <table class="table table-hover">
             <tr>
@@ -24,7 +31,7 @@
             <th>Ação</th>
                   
             </tr>
-            <c:forEach var="c" items="${Cliente}">
+            <c:forEach var="c" items="${cliente}">
                 <tr>
                     <td>${c.id}</td>
                     <td>${c.nome}</td>
@@ -41,3 +48,4 @@
 
     </body>
 </html>
+
