@@ -35,7 +35,7 @@ public class clienteControle extends HttpServlet {
             if(acao!=null && acao.equals("excluir")){
             Integer idCliente = Integer.parseInt(id);
             clienteDAO.excluir(idCliente);
-            request.setAttribute("msg", "Excluído com sucesso!");
+            
             
             }else if(acao!=null && acao.equals("editar")){
             Integer idCliente = Integer.parseInt(id);
@@ -44,7 +44,7 @@ public class clienteControle extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/cliente.jsp").forward(request, response);
             
             }else if(acao!=null && acao.equals("voltarmenu")){
-            request.getRequestDispatcher("menu.jsp").forward(request, response);
+            request.getRequestDispatcher("/menu.jsp").forward(request, response);
             
             }else if(acao!=null && acao.equals("voltarlista")){
             request.setAttribute("cliente", clienteDAO.listar());    
@@ -89,14 +89,15 @@ public class clienteControle extends HttpServlet {
             cliente.valida();
             if(cliente.getId()!=0){
                 clienteDAO.atualizar(cliente);
-                request.setAttribute("msg", "Atualizado com sucesso!");
+                request.setAttribute("cliente", clienteDAO.listar());
+                
             }else{
                 clienteDAO.salvar(cliente);
-                request.setAttribute("msg", "Salvo com sucesso!");
                 request.setAttribute("cliente", clienteDAO.listar());
                 request.getRequestDispatcher("/WEB-INF/listaCliente.jsp").forward(request, response);
+                
             }
-            request.setAttribute("cliente", clienteDAO.listar());
+        request.setAttribute("cliente", clienteDAO.listar());
             
         }catch(validacaoException ex){
             request.setAttribute("msg", "Erro de Validação dos campos" +ex.getMessage());
